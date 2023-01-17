@@ -1,0 +1,23 @@
+@import "../../style/variables.scss";
+
+.backColor {
+  background-color: $colorPrimaryGreen;
+  z-index: -10;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.contentBox {
+  padding: 8rem 0;
+  text-align: center;
+
+  color: white;
+}
+
+.grid4col {
+  margin: 4rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2rem;
+}

@@ -1,21 +1,18 @@
 import { Nav } from "./components/Nav";
-import { PageContainer } from "./components/PageContainer";
-import { HeroSection } from "./components/HeroSection";
-import { Specials } from "./components/Specials";
-import { Chicago } from "./components/Chicago";
-import { Testimonials } from "./components/Testimonials";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
 
 function App() {
   return (
-    // <PageContainer>
     <>
-      <Nav />
-      <HeroSection />
-      <Specials />
-      <Testimonials />
-      <Chicago />
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {/*     <Route path="/booking" element={<BookingPage />}></Route> */}
+        </Routes>
+      </BrowserRouter>
     </>
-    // </PageContainer>
   );
 }
 

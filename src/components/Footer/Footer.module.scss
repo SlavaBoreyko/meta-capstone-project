@@ -1,0 +1,56 @@
+@import "../../style/variables.scss";
+
+.backColor {
+  background-color: $colorPrimaryGreen;
+  z-index: -10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45rem;
+}
+
+.container {
+  padding: 8rem 0;
+}
+
+.grid4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 8rem;
+
+  justify-items: flex-start;
+  align-items: flex-end;
+}
+
+.logoVertical {
+  position: absolute;
+  margin-top: -7rem;
+  height: 18rem;
+  //   object-fit: contain;
+  //   background-color: white;
+  padding: 1.5rem;
+}
+
+.footerTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 2rem;
+
+  color: $colorPrimaryYellow;
+}
+
+.footerLink {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: white;
+  line-height: 2;
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}

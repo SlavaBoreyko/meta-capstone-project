@@ -1,5 +1,14 @@
 @import "../../style/variables.scss";
 
+.aboutContainer {
+  //   width: 100rem;
+  margin: 10rem 0 1rem 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  column-gap: 8rem;
+}
+
 .h2Title {
   display: inline-block;
   color: $colorPrimaryGreen;
@@ -12,7 +21,7 @@
 }
 
 .textContainer {
-  margin-top: 5rem;
+  margin: 5rem 0 10rem 0;
   width: 40rem;
 
   & p {
@@ -20,19 +29,11 @@
   }
 }
 
-.aboutContainer {
-  //   width: 100rem;
-  margin: 10rem 0 1rem 0;
-
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  column-gap: 8rem;
-}
-
 .imagesBox {
   position: relative;
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 15rem;
 }
 
 .imgOne,

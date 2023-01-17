@@ -10,7 +10,7 @@ export const useFetchItems = (fetchAPI) => {
       setItems(data);
     };
     fetchData();
-  }, []);
+  }, [fetchAPI]);
 
   return items;
 };

@@ -12,7 +12,7 @@ export const Specials = () => {
     return null;
   }
   return (
-    <div className="widthContainer">
+    <section className="widthContainer">
       <div className={s.specialsHeader}>
         <h2>This weeks specials!</h2>
         <Button title="Online Menu" />
@@ -22,6 +22,6 @@ export const Specials = () => {
           <ProductCard key={item.id} item={item} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };

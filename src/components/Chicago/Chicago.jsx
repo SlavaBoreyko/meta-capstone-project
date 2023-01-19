@@ -5,7 +5,7 @@ import img02 from "../../assets/img/restaurant.jpg";
 
 export const Chicago = () => {
   return (
-    <div className="widthContainer">
+    <section className="widthContainer">
       <div className={s.aboutContainer}>
         <div className={s.textContainer}>
           <h2 className={s.h2Title}>Little Lemon</h2>
@@ -23,6 +23,6 @@ export const Chicago = () => {
           <img className={s.imgTwo} src={img02} alt="Restaurant" />
         </div>
       </div>
-    </div>
+    </section>
   );
 };

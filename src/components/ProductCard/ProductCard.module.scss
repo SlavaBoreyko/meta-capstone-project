@@ -50,4 +50,7 @@
   line-height: 1.5;
   color: $colorGreyText;
   margin-bottom: 2.4rem;
+
+  //   max-length: 20ch;
+  text-overflow: ellipsis;
 }

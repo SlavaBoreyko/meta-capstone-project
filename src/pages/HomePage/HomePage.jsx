@@ -8,9 +8,11 @@ export const HomePage = () => {
   return (
     <>
       <HeroSection />
-      <Specials />
-      <Testimonials />
-      <Chicago />
+      <main>
+        <Specials />
+        <Testimonials />
+        <Chicago />
+      </main>
       <Footer />
     </>
   );

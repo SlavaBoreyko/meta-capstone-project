@@ -11,7 +11,7 @@ export const Testimonials = () => {
     return null;
   }
   return (
-    <div className={s.backColor}>
+    <section className={s.backColor}>
       <div className="widthContainer">
         <div className={s.contentBox}>
           <h3>Testimonials</h3>
@@ -23,6 +23,6 @@ export const Testimonials = () => {
         </div>
       </div>
       <div className={s.backColor}></div>
-    </div>
+    </section>
   );
 };

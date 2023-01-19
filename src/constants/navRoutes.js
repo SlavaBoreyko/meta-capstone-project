@@ -12,7 +12,7 @@ export const navRoutes = {
     title: "Menu",
   },
   reservations: {
-    path: "/reservations",
+    path: "/booking",
     title: "Reservations",
   },
   orderOnline: {

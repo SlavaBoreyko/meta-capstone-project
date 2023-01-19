@@ -5,7 +5,7 @@ import restImg from "../../assets/img/restauranfood.jpg";
 
 export const HeroSection = () => {
   return (
-    <div className="widthContainer">
+    <header className="widthContainer">
       <div className={s.heroContainer}>
         <div className={s.textContainer}>
           <h1 className={s.h1Title}>Little Lemon</h1>
@@ -20,6 +20,6 @@ export const HeroSection = () => {
         <img className={s.imgCover} src={restImg} alt="Restauran food" />
       </div>
       <div className={s.heroBackground}></div>
-    </div>
+    </header>
   );
 };

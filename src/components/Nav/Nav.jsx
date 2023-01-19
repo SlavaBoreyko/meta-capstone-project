@@ -6,21 +6,19 @@ import { Link } from "react-router-dom";
 
 export const Nav = () => {
   return (
-    <header className="widthContainer">
-      <nav>
-        <Link to="/">
-          <img src={Logo} alt="logo" />
-        </Link>
-        <ul className={`${s.navbar} headline`}>
-          {Object.values(navRoutes).map((navItem) => (
-            <li key={navItem.path}>
-              <Link className="menu-link" to={navItem.path}>
-                {navItem.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </header>
+    <nav className="widthContainer">
+      <Link to="/">
+        <img src={Logo} alt="logo" />
+      </Link>
+      <ul className={`${s.navbar} headline`}>
+        {Object.values(navRoutes).map((navItem) => (
+          <li key={navItem.path}>
+            <Link className="menu-link" to={navItem.path}>
+              {navItem.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };

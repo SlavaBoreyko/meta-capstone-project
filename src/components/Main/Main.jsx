@@ -1,14 +1,15 @@
 import React from "react";
+import s from "./Main.module.scss";
 import { useReducer } from "react";
 import { BookingForm } from "../BookingForm/BookingForm";
 
 const availableTimesArr = [
-  "17:00",
-  "18:00",
-  "19:00",
-  "20:00",
-  "21:00",
-  "22:00",
+  "5:00 PM",
+  "6:00 PM",
+  "7:00 PM",
+  "8:00 PM",
+  "9:00 PM",
+  "10:00 PM",
 ];
 const reducer = (state, action) => {
   if (action.type === "date") {
@@ -25,7 +26,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         date: action.payload,
-        availableTimes: availableTimesArr.slice(0, 3),
+        availableTimes: availableTimesArr.slice(1, 3),
       };
     }
     return {
@@ -53,17 +54,29 @@ const reducer = (state, action) => {
   }
 };
 
-const initialState = {
-  date: 1,
+const dateNow = new Date(Date.now());
+const dateString = dateNow.toISOString().substring(0, 10);
+
+export const initialState = {
+  date: dateString,
   availableTimes: availableTimesArr,
-  time: "17:00",
+  time: "",
   guests: 2,
-  occasion: "",
+  occasion: "Occasion",
 };
 
 export const Main = () => {
   // you will change the availableTimes state to a reducer.
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <BookingForm state={state} dispatch={dispatch} />;
+  return (
+    <div className="widthContainer">
+      <div className={s.container}>
+        {/* <h1 style={{ fontSize: "4rem", marginBottom: "3rem" }}>
+          Reservation details
+        </h1> */}
+        <BookingForm state={state} dispatch={dispatch} />
+      </div>
+    </div>
+  );
 };

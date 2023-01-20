@@ -8,6 +8,7 @@ import {
   CalendarMonth as CalendarMonthIcon,
 } from "@mui/icons-material";
 import { SelectOption } from "../SelectOption";
+import { fetchAPI } from "../../api/bookingDataAPI";
 
 const occasionOptions = [
   { value: "Occasion", label: "Occasion", icon: PersonOutlineIcon },
@@ -16,12 +17,24 @@ const occasionOptions = [
   { value: "Anniversary", label: "Anniversary", icon: PersonOutlineIcon },
 ];
 
-export const BookingForm = ({ state, dispatch }) => {
+export const BookingForm = ({ state, dispatch, submitForm }) => {
+  const handleChangeDate = (e) => {
+    dispatch({ type: "date", payload: e.target.value });
+    const date = new Date(e.target.value);
+    const availableTimes = fetchAPI(date);
+    dispatch({ type: "availableTimes", payload: availableTimes });
+    dispatch({ type: "time", payload: availableTimes[0] });
+  };
+
   const handleChange = (e) => {
     dispatch({ type: e.target.name, payload: e.target.value });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitForm(state);
+    console.log("submitForm", state);
+  };
 
   return (
     <div className={s.container}>
@@ -36,7 +49,7 @@ export const BookingForm = ({ state, dispatch }) => {
             type="date"
             name="date"
             id="res-date"
-            onChange={handleChange}
+            onChange={handleChangeDate}
             value={state.date}
           />
         </div>
@@ -85,10 +98,11 @@ export const BookingForm = ({ state, dispatch }) => {
             onChange={handleChange}
             value={state.occasion}
           >
-            <option>Occasion</option>
-            <option>Birthday</option>
-            <option>Engagement</option>
-            <option>Anniversary</option>
+            {Object.values(occasionOptions).map((optionItem) => (
+              <option key={optionItem.value} value={optionItem.value}>
+                {optionItem.label}
+              </option>
+            ))}
           </select>
         </div>
         {/* <SelectOption options={occasionOptions} /> */}

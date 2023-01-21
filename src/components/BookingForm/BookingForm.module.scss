@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 2rem;
 
     & i {
       position: absolute;
@@ -28,9 +29,10 @@
   }
 
   & input,
-  select {
+  select,
+  button {
     width: 100%;
-    margin-bottom: 2rem;
+    // margin-bottom: 2rem;
 
     border: none;
     border-radius: 0.5rem;
@@ -56,13 +58,23 @@
   }
 }
 
-.submitBtn {
+.errorBox {
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background-color: red;
+  color: white;
+  padding: 0.25rem 0.75rem;
+}
+
+button.submitBtn {
   //   margin-top: 1rem;
   cursor: pointer;
 
-  padding: 4rem;
+  // padding: 4rem;
   height: 5rem;
-  border-radius: 1.6rem;
+  border-radius: 1rem;
 
   box-shadow: 1px 3px 2px 2px rgb(201, 201, 201) !important;
   color: $colorGreyDark !important;
@@ -73,4 +85,15 @@
     box-shadow: 0px 1px 4px 0px rgb(201, 201, 201) !important;
     // background-color: $colorPrimaryYellowDark !important;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    // color: aliceblue !important;
+    box-shadow: none !important;
+  }
 }
+
+// button:disabled {
+//   background-color: aliceblue !important;
+//   box-shadow: none;
+// }

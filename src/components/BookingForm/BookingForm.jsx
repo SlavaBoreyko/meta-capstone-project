@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./BookingForm.module.scss";
 import { Button } from "../Button";
 import dishIcon from "../../assets/svg/dishIcon.svg";
@@ -9,6 +9,8 @@ import {
 } from "@mui/icons-material";
 import { SelectOption } from "../SelectOption";
 import { fetchAPI } from "../../api/bookingDataAPI";
+import { Hidden } from "@mui/material";
+import { useEffect } from "react";
 
 const occasionOptions = [
   { value: "Occasion", label: "Occasion", icon: PersonOutlineIcon },
@@ -18,7 +20,45 @@ const occasionOptions = [
 ];
 
 export const BookingForm = ({ state, dispatch, submitForm }) => {
+  const dateNow = new Date(Date.now());
+  const dateNowString = dateNow.toISOString().substring(0, 10);
+  // const timeNow = `${dateNow.getHours()}:${dateNow.getMinutes()}`;
+
+  const [isValid, setIsValid] = useState({
+    date: true,
+    time: true,
+    guests: true,
+    occasion: true,
+  });
+
+  // disable button
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (Object.values(isValid).includes(false)) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [isValid]);
+
+  const displayErrorDate = { display: `${isValid.date ? "none" : "flex"}` };
+  const displayErrorGuests = { display: `${isValid.guests ? "none" : "flex"}` };
+
   const handleChangeDate = (e) => {
+    let dateNowNumber = new Date(dateNowString);
+    dateNowNumber = dateNowNumber.getTime();
+
+    let selectedDateNumber = new Date(e.target.value);
+    selectedDateNumber = selectedDateNumber.getTime();
+
+    if (selectedDateNumber < dateNowNumber) {
+      setIsValid((prev) => ({ ...prev, date: false }));
+    }
+    if (selectedDateNumber >= dateNowNumber) {
+      setIsValid((prev) => ({ ...prev, date: true }));
+    }
+
     dispatch({ type: "date", payload: e.target.value });
     const date = new Date(e.target.value);
     const availableTimes = fetchAPI(date);
@@ -27,6 +67,34 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
   };
 
   const handleChange = (e) => {
+    const nameSelect = e.target.name;
+
+    if (nameSelect === "time") {
+      if (!state.availableTimes.includes(e.target.value)) {
+        setIsValid((prev) => ({ ...prev, time: false }));
+      } else {
+        setIsValid((prev) => ({ ...prev, time: true }));
+      }
+    }
+
+    if (nameSelect === "guests") {
+      if (e.target.value < 1 || e.target.value > 51) {
+        setIsValid((prev) => ({ ...prev, guests: false }));
+      } else {
+        setIsValid((prev) => ({ ...prev, guests: true }));
+      }
+    }
+
+    if (nameSelect === "occasion") {
+      let occasionArr = [];
+      occasionOptions.forEach((item) => occasionArr.push(item.value));
+
+      if (!occasionArr.includes(e.target.value)) {
+        setIsValid((prev) => ({ ...prev, occasion: false }));
+      } else {
+        setIsValid((prev) => ({ ...prev, occasion: true }));
+      }
+    }
     dispatch({ type: e.target.name, payload: e.target.value });
   };
 
@@ -51,7 +119,13 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
             id="res-date"
             onChange={handleChangeDate}
             value={state.date}
+            min={dateNowString}
+            max={"2023-12-30"}
+            required
           />
+          <div className={`${s.errorBox}`} style={displayErrorDate}>
+            Invalid date. Booking is not possible for past dates.
+          </div>
         </div>
 
         <div className={s.inputBox}>
@@ -64,6 +138,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
             name="time"
             onChange={handleChange}
             value={state.time}
+            required
           >
             {state.availableTimes.map((time) => (
               // BookingSlot ?
@@ -82,12 +157,16 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
             type="number"
             placeholder="1"
             min="1"
-            max="10"
+            max="50"
             id="guests"
             name="guests"
             onChange={handleChange}
             value={state.guests}
+            required
           />
+          <div className={`${s.errorBox}`} style={displayErrorGuests}>
+            Invalid number of guests. Avalible is an amount from 1 to 50.
+          </div>
         </div>
 
         <div className={s.inputBox}>
@@ -97,6 +176,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
             name="occasion"
             onChange={handleChange}
             value={state.occasion}
+            required
           >
             {Object.values(occasionOptions).map((optionItem) => (
               <option key={optionItem.value} value={optionItem.value}>
@@ -106,11 +186,19 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
           </select>
         </div>
         {/* <SelectOption options={occasionOptions} /> */}
-        <input
+        {/* <input
           className={s.submitBtn}
           type="submit"
           value="Make Your Reservation"
-        />
+        /> */}
+        <button
+          className={s.submitBtn}
+          type="submit"
+          // value="Make Your Reservation"
+          disabled={isDisabled}
+        >
+          Make Your Reservation
+        </button>
       </form>
     </div>
   );

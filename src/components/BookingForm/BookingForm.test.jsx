@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Main } from "../Main";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -66,7 +66,7 @@ describe("Validate that the correct attributes are applied", () => {
     const dateNowString = dateNow.toISOString().substring(0, 10);
 
     expect(labelChooseDate.getAttribute("min")).toEqual(dateNowString);
-    expect(labelChooseDate.getAttribute("max")).toEqual("2023-12-30");
+    expect(labelChooseDate.getAttribute("max")).toEqual("2023-12-31");
 
     expect(labelChooseDate.getAttribute("required")).toEqual("");
   });
@@ -94,5 +94,92 @@ describe("Validate that the correct attributes are applied", () => {
     const labelOccasion = screen.getByLabelText("Occasion");
 
     expect(labelOccasion.getAttribute("required")).toEqual("");
+  });
+
+  test("Date validation function appears 'invalid date' message", () => {
+    render(<MockForm />);
+
+    const labelChooseDate = screen.getByLabelText("Choose date");
+
+    let selectedDate = new Date("2023-01-01");
+    selectedDate = selectedDate.toISOString().substring(0, 10);
+
+    fireEvent.change(labelChooseDate, { target: { value: selectedDate } });
+
+    const errorMessage = screen.getByText(/invalid date/i);
+    expect(errorMessage).toBeVisible();
+
+    // selectedDate = new Date("2024-02-01");
+    // selectedDate = selectedDate.toISOString().substring(0, 10);
+
+    // fireEvent.change(labelChooseDate, { target: { value: selectedDate } });
+
+    // const errorMessage2 = screen.getByText(/invalid date/i);
+    // expect(errorMessage2).toBeVisible();
+  });
+
+  test("Date validation function with valid input don't show error message", () => {
+    render(<MockForm />);
+
+    const labelChooseDate = screen.getByLabelText("Choose date");
+
+    let selectedDate = new Date("2023-05-10");
+    selectedDate = selectedDate.toISOString().substring(0, 10);
+
+    fireEvent.change(labelChooseDate, { target: { value: selectedDate } });
+
+    const errorMessage = screen.getByText(/invalid date/i);
+    expect(errorMessage).not.toBeVisible();
+  });
+
+  test("Guests validation function with valid input don't show error message", () => {
+    render(<MockForm />);
+
+    const labelNumberGuests = screen.getByLabelText("Number of guests");
+
+    fireEvent.change(labelNumberGuests, { target: { value: "2" } });
+
+    const errorMessage = screen.getByText(/invalid number of guests/i);
+    expect(errorMessage).not.toBeVisible();
+  });
+
+  test("Guests validation function: put invalid input '0'", () => {
+    render(<MockForm />);
+
+    const labelNumberGuests = screen.getByLabelText("Number of guests");
+
+    fireEvent.change(labelNumberGuests, { target: { value: "0" } });
+
+    const errorMessage = screen.getByText(/invalid number of guests/i);
+    expect(errorMessage).toBeVisible();
+  });
+
+  test("Guests validation function: put invalid input '51'", () => {
+    render(<MockForm />);
+
+    const labelNumberGuests = screen.getByLabelText("Number of guests");
+    fireEvent.change(labelNumberGuests, { target: { value: "51" } });
+    const errorMessage = screen.getByText(/invalid number of guests/i);
+    expect(errorMessage).toBeVisible();
+  });
+
+  test("Occasion validation function: put invalid input 'Invalid occasion'", () => {
+    render(<MockForm />);
+
+    const labelNumberGuests = screen.getByLabelText("Occasion");
+    fireEvent.change(labelNumberGuests, {
+      target: { value: "Invalid occasion" },
+    });
+    expect(screen.getByRole("button")).toBeDisabled();
+  });
+
+  test("Occasion validation function: put invalid input 'Occasion'", () => {
+    render(<MockForm />);
+
+    const labelNumberGuests = screen.getByLabelText("Occasion");
+    fireEvent.change(labelNumberGuests, {
+      target: { value: "Occasion" },
+    });
+    expect(screen.getByRole("button")).not.toBeDisabled();
   });
 });

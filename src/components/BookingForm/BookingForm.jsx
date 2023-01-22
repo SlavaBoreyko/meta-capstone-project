@@ -46,13 +46,11 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
   const displayErrorGuests = { display: `${isValid.guests ? "none" : "flex"}` };
 
   const handleChangeDate = (e) => {
-    let dateNowNumber = new Date(dateNowString);
-    dateNowNumber = dateNowNumber.getTime();
+    const dateNowNumber = new Date(dateNowString).getTime();
+    const maxDate = new Date("2023-12-31").getTime();
+    const selectedDateNumber = new Date(e.target.value).getTime();
 
-    let selectedDateNumber = new Date(e.target.value);
-    selectedDateNumber = selectedDateNumber.getTime();
-
-    if (selectedDateNumber < dateNowNumber) {
+    if (selectedDateNumber < dateNowNumber || selectedDateNumber > maxDate) {
       setIsValid((prev) => ({ ...prev, date: false }));
     }
     if (selectedDateNumber >= dateNowNumber) {
@@ -78,7 +76,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
     }
 
     if (nameSelect === "guests") {
-      if (e.target.value < 1 || e.target.value > 51) {
+      if (e.target.value < 1 || e.target.value > 50) {
         setIsValid((prev) => ({ ...prev, guests: false }));
       } else {
         setIsValid((prev) => ({ ...prev, guests: true }));
@@ -120,7 +118,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
             onChange={handleChangeDate}
             value={state.date}
             min={dateNowString}
-            max={"2023-12-30"}
+            max={"2023-12-31"}
             required
           />
           <div className={`${s.errorBox}`} style={displayErrorDate}>

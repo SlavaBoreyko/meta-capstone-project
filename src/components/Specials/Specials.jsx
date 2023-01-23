@@ -16,7 +16,7 @@ export const Specials = () => {
   return (
     <section className="widthContainer">
       <div className={s.specialsHeader}>
-        <h2>This weeks specials!</h2>
+        <h2 className={s.title}>This weeks specials!</h2>
         <Button title="Online Menu" onClick={() => navigate("/menu")} />
       </div>
       <div className={s.grid3column}>

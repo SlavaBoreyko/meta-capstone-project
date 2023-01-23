@@ -23,7 +23,9 @@ export const HeroSection = () => {
             aria-label="On Click"
           />
         </div>
-        <img className={s.imgCover} src={restImg} alt="Restauran food" />
+        <div style={{ display: "flex", width: "100%" }}>
+          <img className={s.imgCover} src={restImg} alt="Restauran food" />
+        </div>
       </div>
       <div className={s.heroBackground}></div>
     </header>

@@ -99,7 +99,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     submitForm(state);
-    console.log("submitForm", state);
+    // console.log("submitForm", state);
   };
 
   return (

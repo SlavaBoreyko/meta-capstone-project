@@ -190,6 +190,7 @@ export const BookingForm = ({ state, dispatch, submitForm }) => {
           value="Make Your Reservation"
         /> */}
         <button
+          aria-label="On Click"
           className={s.submitBtn}
           type="submit"
           // value="Make Your Reservation"

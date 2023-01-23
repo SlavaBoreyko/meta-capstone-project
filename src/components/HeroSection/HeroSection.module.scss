@@ -13,6 +13,7 @@
 .textContainer {
   width: 40rem;
   color: white;
+  margin-right: 2rem;
 }
 
 .heroContainer {
@@ -23,6 +24,10 @@
 
   display: flex;
   justify-content: space-between;
+
+  // @media (max-width: 80rem) {
+  //   width: 100%;
+  // }
 }
 
 .heroBackground {
@@ -33,6 +38,10 @@
   height: 34rem;
   background-color: $colorPrimaryGreen;
   z-index: -10;
+
+  @media (max-width: 80rem) {
+    // width: 80%;
+  }
 }
 
 .imgCover {
@@ -40,4 +49,9 @@
   height: 40rem;
   // vertical-align: middle;
   object-fit: cover;
+
+  // @media (max-width: 80rem) {
+  //   width: 18rem;
+  //   height: 20rem;
+  // }
 }

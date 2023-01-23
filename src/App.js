@@ -6,6 +6,7 @@ import { ConfirmedPage } from "./pages/ConfirmedPage";
 // import useExternalScripts from "./hooks/useExternalScripts";
 // import { Helmet } from "react-helmet";
 import Safe from "react-safe";
+import { ErrorPage } from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/confirmed-booking" element={<ConfirmedPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </>

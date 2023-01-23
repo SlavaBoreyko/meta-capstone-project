@@ -2,8 +2,10 @@ import React from "react";
 import s from "./HeroSection.module.scss";
 import { Button } from "../Button";
 import restImg from "../../assets/img/restauranfood.jpg";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <header className="widthContainer">
       <div className={s.heroContainer}>
@@ -15,7 +17,11 @@ export const HeroSection = () => {
             traditional recipes served with a modern twist.
           </p>
 
-          <Button title="Reserve a Table" />
+          <Button
+            title="Reserve a Table"
+            onClick={() => navigate("/booking")}
+            aria-label="On Click"
+          />
         </div>
         <img className={s.imgCover} src={restImg} alt="Restauran food" />
       </div>

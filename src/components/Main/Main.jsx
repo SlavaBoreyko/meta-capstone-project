@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./Main.module.scss";
 import { useReducer } from "react";
 import { BookingForm } from "../BookingForm/BookingForm";
-import useExternalScripts from "../../hooks/useExternalScripts";
-import { useState } from "react";
-import { useScript } from "../../hooks/useScript";
 import { fetchAPI, submitAPI } from "../../api/bookingDataAPI";
 import { useNavigate } from "react-router-dom";
 

@@ -12,6 +12,10 @@
   flex-direction: column;
   width: 28%;
 
+  @media (max-width: 80rem) {
+    width: 80%;
+  }
+
   & .inputBox {
     position: relative;
     display: flex;

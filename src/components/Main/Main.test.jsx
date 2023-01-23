@@ -2,13 +2,6 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Main, initialState } from "./Main";
 import { BrowserRouter } from "react-router-dom";
-import {
-  Router,
-  Link,
-  createHistory,
-  createMemorySource,
-  LocationProvider,
-} from "@reach/router";
 import "@testing-library/jest-dom";
 
 const MockForm = () => {
@@ -19,22 +12,22 @@ const MockForm = () => {
   );
 };
 
-function renderWithRouter(
-  ui,
-  { route = "/", history = createHistory(createMemorySource(route)) } = {}
-) {
-  return {
-    ...render(
-      <BrowserRouter>
-        <LocationProvider history={history}>{ui}</LocationProvider>
-      </BrowserRouter>
-    ),
-    // adding `history` to the returned utilities to allow us
-    // to reference it in our tests (just try to avoid using
-    // this to test implementation details).
-    history,
-  };
-}
+// function renderWithRouter(
+//   ui,
+//   { route = "/", history = createHistory(createMemorySource(route)) } = {}
+// ) {
+//   return {
+//     ...render(
+//       <BrowserRouter>
+//         <LocationProvider history={history}>{ui}</LocationProvider>
+//       </BrowserRouter>
+//     ),
+//     // adding `history` to the returned utilities to allow us
+//     // to reference it in our tests (just try to avoid using
+//     // this to test implementation details).
+//     history,
+//   };
+// }
 
 describe("Check out a behavior of Reducer and state", () => {
   test("initializeTimes returns the correct options list.", () => {
@@ -84,9 +77,11 @@ describe("Check out a behavior of Reducer and state", () => {
     let selectedTime = screen.getByText(labelChooseTime.value);
     fireEvent.click(selectedTime);
 
-    const btnSubmit = screen.getByRole("button", {
-      name: /make your reservation/i,
-    });
+    // const btnSubmit = screen.getByRole("button", {
+    //   name: /make your reservation/i,
+    // });
+
+    const btnSubmit = screen.getByRole("button");
     expect(btnSubmit).not.toBeDisabled();
     fireEvent.click(btnSubmit);
 
